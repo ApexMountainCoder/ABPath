@@ -26,7 +26,7 @@ There is also a function, produce_xmax_ymax_path_ymax_max_path, to produce the m
 and then along the Y axis and again, first along the Y axis and then along the X axis. This will be used in combination 
 with the XY combination paths for a complete path set. 
 
-All possible paths produced are combined to generate the a list of the possible paths of index values. Finally, out of the list of possibilies
+All possible paths produced are combined to generate the list of the possible paths of index values. Finally, out of the list of possibilies
 of index value paths, it is determined if there exist one of only the flag value, i.e a path of all 1's.
 
 
