@@ -9,7 +9,7 @@ This problem is solved as an X Y axis traversal problem.
 User defined values are 
   * the 2D Environment size: NxM 
     example:[4,4] is a square N=4, M=4 matrix of random 0,1 values 
-  * start_position within array = [x1, y1] 
+  * start_position within array = [x1,y1] 
   * end_position within array = [x2,y2]
   * flag_value = 1
 
