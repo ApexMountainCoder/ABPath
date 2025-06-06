@@ -4,22 +4,28 @@ Write a Python function that determines whether a path exists between two points
 
 Solution Description: 
 
-This problem is solved as an X Y axis travesral problem. 
+This problem is solved as an X Y axis traversal problem. 
 
 User defined values are 
-  * the 2D Environment size: NxM example:[4,4] is a square N=4, M=4 matrix of random 0,1 values 
+  * the 2D Environment size: NxM 
+    example:[4,4] is a square N=4, M=4 matrix of random 0,1 values 
   * start_position within array = [x1, y1] 
   * end_position within array = [x2,y2]
   * flag_value = 1
 
-Given user defined inputs of the 2D Environment size and start and end positions, the program will create a 2D Enviroment of the user defined values N x M with random 0,1 values. The axis distances across the X and Y axis are determined in each axis direction. 
+Given user defined inputs of the 2D Environment size and start and end positions, the program will create a 2D Enviroment of the user defined values
+N x M with random 0,1 values. The axis distances across the X and Y axis are determined in each axis direction. 
 
-Path Determination Approach: First, a function, axis_steps, takes the difference in the axis movements: Y2-Y1 and X2-X1 to determine axis distance ranges. Using the distances, a dictionary of step movements are created for both the X and Y axis. 
+Path Determination Approach: First, a function, axis_steps, takes the difference in the axis movements: Y2-Y1 and X2-X1 to determine 
+axis distance ranges. Using the distances, a dictionary of step movements are created for both the X and Y axis. 
 A function, build_xy_path_dic, is used to iterate through the two axis step dictionaries using a larger one if exists as at the bound and populates different path potentials from A to B. This is done by a permutation approach of adding X and Y and then Y then X to each previous step. 
 
-There is also a function, produce_xmax_ymax_path_ymax_max_path, to produce the maximum path first along the X axis and then along the Y axis and again first along the Y axis and then along the X axis. This will be used in combination with the XY combination paths for a complete path set. 
+There is also a function, produce_xmax_ymax_path_ymax_max_path, to produce the maximum path first along the X axis 
+and then along the Y axis and again, first along the Y axis and then along the X axis. This will be used in combination 
+with the XY combination paths for a complete path set. 
 
-All possible paths produced are combined to generate the a list of the possible paths of index values. Finally, out of the list of possibilies of index value paths, it is determined if there exist one of only the flag value, i.e a path of all 1's.
+All possible paths produced are combined to generate the a list of the possible paths of index values. Finally, out of the list of possibilies
+of index value paths, it is determined if there exist one of only the flag value, i.e a path of all 1's.
 
 
 
