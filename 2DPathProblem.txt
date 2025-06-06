@@ -18,7 +18,8 @@ N x M with random 0,1 values. The axis distances across the X and Y axis are det
 
 Path Determination Approach: First, a function, axis_steps, takes the difference in the axis movements: Y2-Y1 and X2-X1 to determine 
 axis distance ranges. Using the distances, a dictionary of step movements are created for both the X and Y axis. 
-A function, build_xy_path_dic, is used to iterate through the two axis step dictionaries using a larger one if exists as at the bound and populates different path potentials from A to B. This is done by a permutation approach of adding X and Y and then Y then X to each previous step. 
+A function, build_xy_path_dic, is used to iterate through the two axis step dictionaries using a larger one if exists as at the bound and populates 
+different path potentials from A to B. This is done by a permutation approach of adding X and Y and then Y then X to each previous step. 
 
 There is also a function, produce_xmax_ymax_path_ymax_max_path, to produce the maximum path first along the X axis 
 and then along the Y axis and again, first along the Y axis and then along the X axis. This will be used in combination 
