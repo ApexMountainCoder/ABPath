@@ -99,7 +99,7 @@ def axis_steps(dic):
 '''
 Function Description: Intakes both X and Y dictionaries to produce two paths:
     XMAX_YMAX = The path formed when traversing first the maximum path value along only the X axis first followed by Y traversal 
-    YMAX_XMAX = The path formed when traversiing first the maximum path value along only the Y axis first followed by X traversal 
+    YMAX_XMAX = The path formed when traversing first the maximum path value along only the Y axis first followed by X traversal 
 
     Both will be used in final path possible combinations and appened to paths when switching between X and Y axis moves 
     Note: Total paths should be 2 + N_steps*2 = max path in x then y + max path in y then x + N_steps*2 where 2 is the choice selection of X or Y
