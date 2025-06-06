@@ -1,6 +1,7 @@
 Problem Description: 
 
-Write a Python function that determines whether a path exists between two points that only crosses black pixels. Define a path as a sequence of pixels such that each pixel in the path is adjacent to the next pixel in the path. 
+Write a Python function that determines whether a path exists between two points that only crosses black pixels. Define a path as a sequence of pixels
+such that each pixel in the path is adjacent to the next pixel in the path. 
 
 Solution Description: 
 
