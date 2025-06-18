@@ -1,7 +1,6 @@
 Problem Description: 
 
-Write a Python function that determines whether a path exists between two points that only crosses black pixels. Define a path as a sequence of pixels
-such that each pixel in the path is adjacent to the next pixel in the path. 
+Write a Python function that determines whether a path exists between two points that only crosses black pixels. Define a path as a sequence of pixels such that each pixel in the path is adjacent to the next pixel in the path. 
 
 Solution Description: 
 
@@ -14,8 +13,7 @@ User defined values are
   * end_position within array = [x2,y2]
   * flag_value = 1
 
-Given user defined inputs of the 2D Environment size and start and end positions, the program will create a 2D Enviroment of the user defined values
-N x M with random 0,1 values. The axis distances across the X and Y axis are determined in each axis direction. 
+Given user defined inputs of the 2D Environment size and start and end positions, the program will create a 2D Enviroment of the user defined values N x M with random 0,1 values. The axis distances across the X and Y axis are determined in each axis direction. 
 
 Path Determination Approach: First, a function, axis_steps, takes the difference in the axis movements: Y2-Y1 and X2-X1 to determine 
 axis distance ranges. Using the distances, a dictionary of step movements are created for both the X and Y axis. 
@@ -311,13 +309,6 @@ Input: Path_list, 2D Array Environment
 Output: List of index values 
 
 '''
-# Right now: 1:34 pm jun 13th this logic is wrong: It takes the x step positions and gets the index value 
-# It does not get the the correct value which is the index value of the new point location given the movements in the x and y axis
-# which is currently what this path_list represents: x_Step mpvements : [1,0][0,1],[0,2],[2,0],[0,3],[3,0] 
-                                             #instead of                [1,0][1,1],[1,2],[2,2],[2,3][3,3]
-
-# update 7:56 jun 13 logic has been updated with new function to produce the proper index positions
-# we can now use this function; proceed forward
 def produce_index_path_values(path_list, array):
 
     array_path_values = [] 
@@ -361,7 +352,9 @@ def produce_all_index_value_paths(start_position, end_position, produce_xy_step_
         paths = xy_path_dic[size_xy_path_dic]
 
         index_value_paths = []
-        
+        '''
+        N paths of XY -> YX combintions formations
+        '''
         for i in range(0,len(paths)):
             path_i = paths[i]
             path_i.insert(0,start_position) 
@@ -383,34 +376,6 @@ def produce_all_index_value_paths(start_position, end_position, produce_xy_step_
 
         index_value_paths.append(xy_max_path)
         index_value_paths.append(yx_max_path)
-
-    
-    #    path_values = [] 
-     #   n_paths = len(index_value_paths)
-        
-        '''
-        N paths of XY -> YX combintions formations
-        '''
-        #path_flag_val_dic = {}
-       # flag_value_paths = []
-      #  for i in range(0,n_paths):
-                
-                #path_i = index_value_paths[i]
-        
-                # for this index path_i, get the associated array_index_values; store in a list
-                #path_i_values = produce_index_path_values(path_i, array)
-               # path_values.append(path_i_values)
-    
-                # if all path values are the flag value, then keep track of the index positions 
-                #if all(v == flag_val for v in path_i_values):
-                    # store path_i 
-                 #   flag_value_paths.append(path_i)
-                  #  path_flag_val_dic['all_flag_value']=flag_value_paths
-
-                    # instead of storing and then checking all index values as an interative list  
-                    # we already know the index valuae paths as the array stored in the dict
-
-        #return path_flag_val_dic
 
         return index_value_paths
 
@@ -578,9 +543,6 @@ def produce_unique_list_pair(lists_1, lists_2):
             return dic
                 
 
-
-    
-
 '''
 Given start_position, end_position, produce both dictionaries of steps in the X direction,Y direction
      resulted by going along: 
@@ -686,7 +648,6 @@ for index_values_path in index_position_path_list:
 # Check of 2D Envirnment 
 array
           
-
 '''
 Additional Goal: Given a set of two startandend points: two start and two end points
     
@@ -707,7 +668,6 @@ First we can check if both start and end value pairs:
 
     VS. Produce dictionary for first path and only produce dicionary for second point if not path in the first dicionary 
 '''
-
 
 
 start_position_2 = [0,0]
@@ -745,7 +705,7 @@ if (start_position_2 != start_position_1 and start_position_2 != end_position_1 
     
     # If either NOT flag value then there will NOT exist an path between both of all VALUE value
     if (start_pos_1_index_value == flag_value and end_pos_1_index_value == flag_value and start_pos_2_index_value == flag_value and end_pos_2_index_value == flag_value):
-        # produce first dic of flag_values start_end position 
+        # Produce first dic of flag_values start_end position 
 
         '''
          #Produce list of the index_position as we move along the the path of x y steps stored in the index value paths produced from x or y moves
@@ -781,14 +741,6 @@ if (start_position_2 != start_position_1 and start_position_2 != end_position_1 
              print("False", (size_index_path_1, size_index_path_2 ))
           #   print("Total Paths POssible:", total_paths) 
          
-        
-         
-         # We also want to produce a path dict for the second end point
-         # But we compare the possible paths with that which is in the first dictionary
-        
-        
-        
-         #for the second pair points 
          
     else:
              print("False: Path ends does not contain flag_value")
