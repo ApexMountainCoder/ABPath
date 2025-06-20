@@ -32,8 +32,8 @@ import numpy as np
 # User Defined values of 2D Enviroment size, the start and end positions and flag_value 
 N = 7
 M = 7
-start_position = [1,1]
-end_position = [3,3]
+start_position = [2,2]
+end_position = [5,5]
 flag_val = 1
 
 
@@ -302,27 +302,10 @@ def build_xy_path_dic(y_dic_steps, x_dic_steps):
     return path_dic
 
 '''
-Function Description: Intakes a list of indexes and numpy array to produce a list of values per index within the array
-                        This will be used to determine if there exist a possible path from start to end of only the flag value 
-
-Input: Path_list, 2D Array Environment 
-Output: List of index values 
-
+Function Description: Produces a path of index postition values given a start and end
+Input: Start_position, end_position, functinos to produce paths
+Output: List of Lists of Path values for the index position
 '''
-def produce_index_path_values(path_list, array):
-
-    array_path_values = [] 
-    n_index = len(path_list)
-
-    for i in range(0,n_index):
-        index_0_val = path_list[i][0]
-        index_1_val = path_list[i][0]
-        array_index_value = array[index_0_val, index_1_val] 
-        array_path_values.append(array_index_value)
-        
-    return array_path_values 
-
-
 
 def produce_all_index_value_paths(start_position, end_position, produce_xy_step_dic, produce_xmax_ymax_path_ymax_max_path, build_xy_path_dic):
         
@@ -352,6 +335,7 @@ def produce_all_index_value_paths(start_position, end_position, produce_xy_step_
         paths = xy_path_dic[size_xy_path_dic]
 
         index_value_paths = []
+
         '''
         N paths of XY -> YX combintions formations
         '''
@@ -377,7 +361,52 @@ def produce_all_index_value_paths(start_position, end_position, produce_xy_step_
         index_value_paths.append(xy_max_path)
         index_value_paths.append(yx_max_path)
 
+
+
         return index_value_paths
+
+
+'''
+Function Description: Intakes a list of indexes and numpy array to produce a list of values per index within the array
+                      This will be used to determine if there exist a possible path from start to end of only the flag value 
+
+Input: Path_list, 2D Array Environment 
+Output: List of index values 
+
+
+Function Update: If we want to produce path value that does not intersect another path and it's associated array values 
+                then we want to store not just associated array values of the position index but the position index itself as well
+
+                possible: dictionary  [pos_index] = [index_val]
+                OR  
+                          dictionary  key =  [[index_val],[pos_index]]
+'''
+def produce_index_path_values(path_list, array):
+    
+    all_path_dic = {} 
+    all_paths = []
+    n_index_path_possibilities = len(path_list)
+    
+    for i in range(0,n_index_path_possibilities):
+         # will be dic key so we can get this value if all unique and then see if all associated flag_value: i.e 1's
+        index_position_path_list = [] 
+        array_path_values = [] 
+        index_position_path = path_list[i]
+        index_position_path_list.append(index_position_path)
+        
+        for index_position_val in index_position_path:
+            index_0_val = index_position_val[0]
+            index_1_val = index_position_val[1]
+            array_index_value = array[index_0_val, index_1_val] 
+            array_path_values.append(array_index_value)
+        
+        all_paths.append(array_path_values)
+
+        all_path_dic[str(index_position_path_list)] = array_path_values
+    
+    return [all_paths, all_path_dic]
+
+
 
 
 
@@ -543,6 +572,9 @@ def produce_unique_list_pair(lists_1, lists_2):
             return dic
                 
 
+
+    
+
 '''
 Given start_position, end_position, produce both dictionaries of steps in the X direction,Y direction
      resulted by going along: 
@@ -611,7 +643,9 @@ index_position_path_list = produce_index_position_list(index_value_paths)
 Given the array and the index positions, produce an list of the indexed values per position
 This will produce the path whether it is all flag_value or not
 '''
-position_index_value_list = produce_index_path_values(index_position_path_list , array)
+position_index_value = produce_index_path_values(index_position_path_list , array)
+position_index_value_list = position_index_value[0]
+
 
 
 ''' 
@@ -647,13 +681,15 @@ for index_values_path in index_position_path_list:
 
 # Check of 2D Envirnment 
 array
-          
+
 '''
+=====================================================================================
+
 Additional Goal: Given a set of two startandend points: two start and two end points
     
     a. Determine if exist a path between both that are all flag_value
     b. determine if exist a path in one both not the other i.e there is 
-====
+=====================================================================================
 
 First we can check if both start and end value pairs:
     1. are both the flag values; otherwise stop and return False because there will only exist any path between start and end all flag value 
@@ -670,10 +706,11 @@ First we can check if both start and end value pairs:
 '''
 
 
+
 start_position_2 = [0,0]
 end_position_2 = [3,3]
 start_position_1 = [4,4]
-end_position_1 = [5,5]
+end_position_1 = [6,5]
 flag_value = 1 
 
 # Given two pairs of points: 
@@ -705,7 +742,7 @@ if (start_position_2 != start_position_1 and start_position_2 != end_position_1 
     
     # If either NOT flag value then there will NOT exist an path between both of all VALUE value
     if (start_pos_1_index_value == flag_value and end_pos_1_index_value == flag_value and start_pos_2_index_value == flag_value and end_pos_2_index_value == flag_value):
-        # Produce first dic of flag_values start_end position 
+        # produce first dic of flag_values start_end position 
 
         '''
          #Produce list of the index_position as we move along the the path of x y steps stored in the index value paths produced from x or y moves
@@ -724,23 +761,34 @@ if (start_position_2 != start_position_1 and start_position_2 != end_position_1 
         
         index_positions_list_1 = produce_index_position_list(path_step_dic_1)
         index_positions_list_2 = produce_index_position_list(path_step_dic_2)
+
+
+        position_index_value_1 = produce_index_path_values(index_positions_list_1, array)
+        position_index_value_2 = produce_index_path_values(index_positions_list_2, array)
         
+        position_index_value_1_list = position_index_value_1[0]
+        position_index_value_1_dic = position_index_value_1[1]
+        
+        position_index_value_2_list = position_index_value_2[0]
+        position_index_value_2_dic = position_index_value_2[1]
+
+
         unique_lists = produce_unique_list_pair(index_positions_list_1, index_positions_list_2)
 
-         
-        size_index_path_1 = len(index_positions_list_1)
-        size_index_path_2 = len(index_positions_list_2)
-         
-        if size_index_path_1 > 0 and size_index_path_2 > 0:
-             print("True")
-             print("Exists paths all flag_value per pair:", (size_index_path_1, size_index_path_2 ))
-             print("dictionary of unique path pair:")
-             print(unique_lists)
-          #   print("Total Paths Possible:",total_paths)
+
+
+        qualifying_path_1_values = position_index_value_1_dic[str([unique_lists['qualifying_lists'][0]])]
+        qualifying_path_2_values = position_index_value_2_dic[str([unique_lists['qualifying_lists'][1]])]
+        
+        
+        if all(v == flag_val for v in qualifying_path_1_values) and all(v == flag_val for v in qualifying_path_1_values):
+            print("True")
+            print("dictionary of unique qualifying lists:")
+            print(unique_lists['qualifying_lists'])    
         else:
              print("False", (size_index_path_1, size_index_path_2 ))
-          #   print("Total Paths POssible:", total_paths) 
          
+    
          
     else:
              print("False: Path ends does not contain flag_value")
@@ -753,4 +801,3 @@ if (start_position_2 != start_position_1 and start_position_2 != end_position_1 
         
 else:
     print("End points same: No path exists where pixels are unique to both since there exist a similar end point. Pick different end points")
-
