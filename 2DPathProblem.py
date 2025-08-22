@@ -1,3 +1,4 @@
+'''
 Problem Description: 
 
 Write a Python function that determines whether a path exists between two points that only crosses black pixels. Define a path as a sequence of pixels such that each pixel in the path is adjacent to the next pixel in the path. 
@@ -26,6 +27,7 @@ with the XY combination paths for a complete path set.
 
 All possible paths produced are combined to generate the list of the possible paths of index values. Finally, out of the list of possibilies
 of index value paths, it is determined if there exist one of only the flag value, i.e a path of all 1's.
+'''
 
 import numpy as np
 
